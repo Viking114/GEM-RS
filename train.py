@@ -5,9 +5,9 @@ config = {    'num_epoch': 50,
               'batch_size': 256,  # 1024,
               'optimizer': 'adam',
               'adam_lr': 0.01,
-              'num_users': 943,
-              'num_items': 1682,
-              'latent_dim': 32,
+              'user_num': 0,
+              'item_num': 0,
+              'embed_dim': 32,
               'num_negative': 4,
               'layers': [100,64,32,16,8],  # layers[0] is the concat of latent user vector & latent item vector
               'l2_regularization': 0.0000001,  # MLP model is sensitive to hyper params
@@ -18,8 +18,8 @@ config = {    'num_epoch': 50,
 df,_ = du.loadKaggleMovieSmall()
 print('Range of userId is [{}, {}]'.format(df.userId.min(), df.userId.max()))
 print('Range of itemId is [{}, {}]'.format(df.itemId.min(), df.itemId.max()))
-config['num_users'] = df.userId.max()+1
-config['num_items'] = df.itemId.max()+1
+config['user_num'] = df.userId.max()+1
+config['item_num'] = df.itemId.max()+1
 # DataLoader for training
 sample_generator = SampleGenerator(ratings=df)
 evaluate_data = sample_generator.evaluate_data
