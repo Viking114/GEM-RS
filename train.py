@@ -1,5 +1,6 @@
 import data_utils as du
 from dataset import SampleGenerator
+from preprocessing import getSimiGraph
 
 config = {    'num_epoch': 50,
               'batch_size': 256,  # 1024,
@@ -23,4 +24,5 @@ config['item_num'] = df.itemId.max()+1
 # DataLoader for training
 sample_generator = SampleGenerator(ratings=df)
 evaluate_data = sample_generator.evaluate_data
-
+u_graph = getSimiGraph(df,Type='user')
+i_graph = getSimiGraph(df,Type='item')
