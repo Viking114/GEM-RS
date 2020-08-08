@@ -61,7 +61,7 @@ class MetronAtK(object):
         test_in_top_k['ndcg'] = test_in_top_k['rank'].apply(lambda x: math.log(2) / math.log(1 + x)) # the rank starts from 1
         return test_in_top_k['ndcg'].sum() * 1.0 / full['user'].nunique()
 
-def evaluate(model,evaluate_data, epoch_id,use_cuda):
+def evaluate(model, evaluate_data, epoch_id, use_cuda):
     _metron = MetronAtK(top_k=10)
     with torch.no_grad():
         test_users, test_items = evaluate_data[0], evaluate_data[1]

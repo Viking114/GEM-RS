@@ -7,8 +7,8 @@ class DNN(torch.nn.Module):
         print('initializing DNN')
         super(DNN, self).__init__()
         self.config = config
-        self.user_num = config['u_num']
-        self.item_num = config['i_num']
+        self.user_num = config['user_num']
+        self.item_num = config['item_num']
         self.u_embed_dim = config['embed_dim']
         self.i_embed_dim = config['embed_dim']
 
@@ -54,6 +54,9 @@ class Engine(object):
         self.loss_fn = torch.nn.BCELoss()
         self.model = DNN(config, uvec=uPretrain, ivec=iPretrain)
         self.opt = self.initialize_opt(self.model, config)
+        self.use_cuda = config['use_cuda']
+        if self.use_cuda:
+            self.model = self.model.cuda()
         print(self.model)
 
     def initialize_opt(self,model,params):
@@ -82,7 +85,7 @@ class Engine(object):
             user, item, rating = batch[0], batch[1], batch[2]
             rating = rating.float()
             loss = self.train_single_batch(user, item, rating)
-            print('[Training Epoch {}] Batch {}, Loss {}'.format(epoch_id, batch_id, loss))
+            # print('[Training Epoch {}] Batch {}, Loss {}'.format(epoch_id, batch_id, loss))
             total_loss += loss
         print('total loss:',total_loss)
 

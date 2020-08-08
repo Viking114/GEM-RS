@@ -1,0 +1,16 @@
+/server/temp
+/cmake-build-debug
+/test_cpp
+/.idea
+/test
+/build
+*/temp
+*text8
+/temp*
+*cmake-build-debug*
+*.so
+*/log/*
+/scripts/001
+*/.idea/*
+*/old/*
+!/build/server_pop
